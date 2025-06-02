@@ -1,4 +1,4 @@
-package kr.or.ddit.case03.controller;
+package kr.or.ddit.case04.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

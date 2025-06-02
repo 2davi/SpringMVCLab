@@ -1,10 +1,10 @@
 package kr.or.ddit.conf;
 
-import java.lang.ModuleLayer.Controller;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import jakarta.annotation.PostConstruct;

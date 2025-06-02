@@ -17,7 +17,19 @@ import jakarta.servlet.http.HttpServletRequest;
  * 	Layered Architecture
  * 	이번에는 전면부 Layer를 쪼갬.
  * 
+ * 	*** 최종적으로 HandlerAdapter 에게 Model과 View에 대한 정보를 전달하는 방법.
  * 	■□■ Model, ModelAndView, @ModelAttribute 사용 방법
+ * 	■ model
+ * 		: call by reference 형태로 전달하기 위해 핸들러메소드의 argument로 Model을 집어넣음.
+ * 		: view name은 반환값의 형태로 전달. ?
+ * 		: json으로 전달할 때는 view name이 필요가 없지. 그럴 땐 void처리해도 좋고, 그냥 return값을 무시한다.
+ * 	■ model&view
+ * 		: ModelAndView 라는 반환객체로 한 번에 전달.
+ * 	■ @ModelAndView
+ * 		: 주로 위의 두 가지 중 하나를 선택해서 병행하여 쓴다.
+ * 		: 하나의 컨트롤러에 여러 핸들러가 있을 때 + 각 핸들러가 한 모델을 공통으로 사용할 때.
+ * 		: model을 반환하는 메소드를 따로 하나 만든다.
+ * 		: 해당 메소드의 반환타입에 @ModelAndView를 사용함.
  */
 @Controller
 @RequestMapping("/case04")
