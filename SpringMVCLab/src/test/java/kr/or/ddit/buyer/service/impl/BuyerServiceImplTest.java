@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import kr.or.ddit.annotation.RootContextConfig;
 import kr.or.ddit.buyer.service.BuyerService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
