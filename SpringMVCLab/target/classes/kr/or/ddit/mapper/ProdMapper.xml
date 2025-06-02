@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.mapper.ProdMapper">
+
+	<resultMap type="ProdVO" id="prodMap" autoMapping="true">
+	<!-- PK를 바인딩할 때는 id 태그를 쓴다. -->
+		<!-- <id property="prodId" column="PROD_ID"/>
+		<result property="buyerId" column="BUYER_ID"/>
+		<result property="lprodGu" column="LPROD_GU"/>
+		<result property="prodColor" column="PROD_COLOR"/>
+		<result property="prodCost" column="PROD_COST"/>
+		<result property="prodDelivery" column="PROD_DELIVERY"/>
+		<result property="prodDetail" column="PROD_DETAIL"/>
+		<result property="prodImg" column="PROD_IMG"/>
+		<result property="prodInsdate" column="PROD_INSDATE"/>
+		<result property="prodMileage" column="PROD_MILEAGE"/>
+		<result property="prodName" column="PROD_NAME"/>
+		<result property="prodOutline" column="PROD_OUTLINE"/>
+		<result property="prodPrice" column="PROD_PRICE"/>
+		<result property="prodProperstock" column="PROD_PROPERSTOCK"/>
+		<result property="prodQtyin" column="PROD_QTYIN"/>
+		<result property="prodQtysale" column="PROD_QTYSALE"/>
+		<result property="prodSale" column="PROD_SALE"/>
+		<result property="prodSize" column="PROD_SIZE"/>
+		<result property="prodTotalstock" column="PROD_TOTALSTOCK"/>
+		<result property="prodUnit" column="PROD_UNIT"/> -->
+	<!-- NESTED MAP(1): MAP 안에 MAP이 들어가는 중첩 구조 -->
+		<association property="buyer" javaType="BuyerVO" autoMapping="true">
+<!-- 			<id property="buyerId" column="BUYER_ID" />
+			<result property="buyerAdd1" column="BUYER_ADD1"/>
+			<result property="buyerAdd2" column="BUYER_ADD2"/>
+			<result property="buyerComtel" column="BUYER_COMTEL"/>
+			<result property="buyerFax" column="BUYER_FAX"/>
+			<result property="buyerMail" column="BUYER_MAIL"/>
+			<result property="buyerCharger" column="BUYER_CHARGER"/>
+			<result property="buyerTelext" column="BUYER_TELEXT"/>
+			<result property="buyerName" column="BUYER_NAME"/>
+			<result property="lprodGu" column="LPROD_GU"/>
+			<result property="buyerBank" column="BUYER_BANK"/>
+			<result property="buyerBankno" column="BUYER_BANKNO"/>
+			<result property="buyerBankname" column="BUYER_BANKNAME"/>
+			<result property="buyerZip" column="BUYER_ZIP"/> -->
+		</association>
+	<!-- NESTED MAP(2): MAP 안에 MAP이 들어가는 중첩 구조 -->
+		<association property="lprod" javaType="LprodVO" autoMapping="true" />
+	</resultMap>
+	
+	<select id="selectProdList" resultMap="prodMap"> <!-- resultType="ProdVO" --> 
+		SELECT
+			PROD_ID
+			, PROD_NAME
+			, BUYER_ID
+			, LPROD_GU
+			, PROD_PRICE
+			, PROD_COST
+			, PROD_OUTLINE
+			, LPROD_NAME
+			, BUYER_NAME
+		  FROM PROD
+	   NATURAL JOIN LPROD
+	   NATURAL JOIN BUYER
+	</select>
+	<select id="selectProdListForMap" resultType="HashMap">
+		SELECT
+			PROD_ID
+			, PROD_NAME
+			, BUYER_ID
+			, LPROD_GU
+			, PROD_PRICE
+			, PROD_COST
+			, PROD_OUTLINE
+			, LPROD_NAME
+			, BUYER_NAME
+			, BUYER_ADD1
+		  FROM PROD
+	   NATURAL JOIN LPROD
+	   NATURAL JOIN BUYER
+	</select>
+	<select id="selectProd" parameterType="String" resultMap="prodMap">
+		SELECT *
+		  FROM PROD
+	   NATURAL JOIN LPROD
+	   NATURAL JOIN BUYER
+		 WHERE PROD_ID = #{prodId}
+	</select>
+	<!-- 데이터 매퍼 ? 데이터의 타입 변환을 담당함.
+	가장 주의해야 할 요소는 null 데이터.
+	null 데이터 변환 규칙성을 정의하기 위해, inline-attribute를 사용함. -->
+	<resultMap type="ProdVO" id="prodDetailMap" extends="prodMap">
+		
+	</resultMap>
+	
+	<insert id="insertProd" parameterType="ProdVO">
+	 	INSERT INTO PROD(
+		    PROD_ID,
+		    PROD_NAME,
+		    LPROD_GU,
+		    BUYER_ID,
+		    PROD_COST,
+		    PROD_PRICE,
+		    PROD_SALE,
+		    PROD_OUTLINE,
+		    PROD_DETAIL,
+		    PROD_IMG,
+		    PROD_TOTALSTOCK,
+		    PROD_INSDATE,
+		    PROD_PROPERSTOCK,
+		    PROD_SIZE,
+		    PROD_COLOR,
+		    PROD_DELIVERY,
+		    PROD_UNIT,
+		    PROD_QTYIN,
+		    PROD_QTYSALE,
+		    PROD_MILEAGE
+	 	)VALUES(
+	 		#{prodId},
+			#{prodName},
+			#{lprodGu},
+			#{buyerId},
+			#{prodCost, jdbcType=NUMERIC}, <!-- 인라인 파라미터가 null일 때, Oracle의 Number타입에 맞춰 조정해준다. -->
+			#{prodPrice, jdbcType=NUMERIC},
+			#{prodSale, jdbcType=NUMERIC},
+			#{prodOutline},
+			#{prodDetail, jdbcType=CLOB},
+			#{prodImg, jdbcType=VARCHAR},
+			#{prodTotalstock},
+			#{prodInsdate},
+			#{prodProperstock, jdbcType=NUMERIC},
+			#{prodSize, jdbcType=VARCHAR},
+			#{prodColor, jdbcType=VARCHAR},
+			#{prodDelivery, jdbcType=VARCHAR},
+			#{prodUnit, jdbcType=VARCHAR},
+			#{prodQtyin, jdbcType=NUMERIC},
+			#{prodQtysale, jdbcType=NUMERIC},
+			#{prodMileage, jdbcType=NUMERIC})
+	</insert>
+	<update id="updateProd" parameterType="ProdVO">
+		UPDATE PROD
+		   SET
+		   	<!-- PROD_ID = #{prodId}, -->
+			PROD_NAME = #{prodName},
+			<!-- LPROD_GU = #{lprodGu}, -->
+			<!-- BUYER_ID = #{buyerId}, -->
+			PROD_COST = #{prodCost},
+			PROD_PRICE = #{prodPrice},
+			PROD_SALE = #{prodSale},
+			PROD_OUTLINE = #{prodOutline},
+			PROD_DETAIL = #{prodDetail},
+			PROD_IMG = #{prodImg},
+			PROD_TOTALSTOCK = #{prodTotalstock},
+			PROD_INSDATE = #{prodInsdate},
+			PROD_PROPERSTOCK = #{prodProperstock},
+			PROD_SIZE = #{prodSize},
+			PROD_COLOR = #{prodColor},
+			PROD_DELIVERY = #{prodDelivery},
+			PROD_UNIT = #{prodUnit},
+			PROD_QTYIN = #{prodQtyin},
+			PROD_QTYSALE = #{prodQtysale},
+			PROD_MILEAGE = #{prodMileage}
+		 WHERE PROD_ID = #{prodId}
+	</update>
+</mapper>
