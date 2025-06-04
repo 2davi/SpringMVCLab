@@ -14,7 +14,8 @@
     <div class="card-body">
       <div class="row">
       
-          <form method="post" enctype="application/x-www-form-urlencoded">
+          <form method="post" enctype="application/x-www-form-urlencoded"
+          		action="${pageContext.request.contextPath }/buyer/buyerModify.do">
 <!--■□-->  	<div class="form-group">
 <!--□■-->  		<input type="text" name="buyerId" value="${buyer.buyerId}" readonly />
 <!--■□-->  	</div>

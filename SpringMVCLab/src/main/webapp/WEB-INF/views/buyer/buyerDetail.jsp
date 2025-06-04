@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>BuyerDetail.jsp</title>
-<%@ include file="/WEB-INF/fragments/preStyle.jsp" %>
 </head>
 <body>
 <main class="container" >
@@ -15,7 +14,7 @@
 
 		<tr>
 			<td colspan="2">
-				<c:url value="/buyer/buyerUpdate.do" var="updateURL">
+				<c:url value="/buyer/buyerModify.do" var="updateURL">
 					<c:param name="what" value="${buyer.buyerId }" />
 				</c:url>
 				<a class="btn btn-primary" href="${updateURL }">수정</a>

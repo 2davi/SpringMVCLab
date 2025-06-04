@@ -16,13 +16,29 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>kr.or.ddit.conf.SpringRootContextConfig</param-value>
 	</context-param>
-<!-- 	<listener>
+ 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener> -->
+	</listener>
+	
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<!-- 하위 컨테이너 생성 설정. Controller/View layer 등록 -->
 	<!-- Front Controller Pattern : 모든 요청을 집중해서 처리하는 전처리 컨트롤러 분리 구조. -->
-	<!-- Front Controller(DispatcherServlet) 뒤에서 하나의 요청을 전담하는 컨트롤러(command handler)가 
-		동작하게 됨. -->
+	<!-- Front Controller(DispatcherServlet) 뒤에서 하나의 요청을 전담하는 컨트롤러(command handler)가 동작하게 됨. --> 
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>

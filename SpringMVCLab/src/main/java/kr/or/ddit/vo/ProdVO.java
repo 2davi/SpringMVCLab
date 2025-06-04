@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
+import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.vo.ProdVO.ProdVOBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -46,13 +49,17 @@ import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(of="prodId")
+@NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class ProdVO implements Serializable{
-
+	@NotBlank(groups = UpdateGroup.class)
 	private String prodId;
+	@NotBlank
 	private String prodName;
+	@NotBlank
 	private String lprodGu;
+	@NotBlank
 	private String buyerId;
 	private Integer prodCost;
 	private Integer prodPrice;
@@ -72,9 +79,20 @@ public class ProdVO implements Serializable{
 	private Integer prodQtysale;
 	private Integer prodMileage;
 	
-	private LprodVO lprod;	//<--has 관계
-	private BuyerVO buyer;	//<--has A 관계
-//	private String lprodName;
-//	private String buyerName;
-	
+	private LprodVO lprod; // has A 관계
+	private BuyerVO buyer; // has A 관계
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

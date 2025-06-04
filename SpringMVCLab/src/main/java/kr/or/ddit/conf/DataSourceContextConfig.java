@@ -1,4 +1,10 @@
 package kr.or.ddit.conf;
+//	//데이터소스는 반드시 dataSource 이름으로 등록해야 한다.
+//	@Bean
+//	public DataSource dataSource() {
+//		HikariDataSource ds = new HikariDataSource();
+//		return ds;
+//	}
 
 import javax.sql.DataSource;
 
@@ -13,38 +19,43 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @PropertySource("classpath:kr/or/ddit/db/DBInfo.properties")
 public class DataSourceContextConfig {
-
-//	//데이터소스는 반드시 dataSource 이름으로 등록해야 한다.
-//	@Bean
-//	public DataSource dataSource() {
-//		HikariDataSource ds = new HikariDataSource();
-//		return ds;
-//	}
 	@Bean
-	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
+	public DataSource dataSource(
+		@Value("${maindb.driverClassName}") String driverClassName	
+		, @Value("${maindb.url}") String url
+		, @Value("${maindb.username}") String username
+		, @Value("${maindb.password}") String password
+		, @Value("${maindb.autoCommit}") boolean autoCommit
+		, @Value("${maindb.minimumIdle}") int minimumIdle
+		, @Value("${maindb.maximumPoolSize}") int maximumPoolSize
+		, @Value("${maindb.connectionTimeout}") long connectionTimeout	
+	){
+		HikariDataSource ds = new HikariDataSource();
+		ds.setDriverClassName(driverClassName);
+		ds.setJdbcUrl(url);
+		ds.setUsername(username);
+		ds.setPassword(password);
+		ds.setAutoCommit(autoCommit);
+		ds.setMinimumIdle(minimumIdle);
+		ds.setMaximumPoolSize(maximumPoolSize);
+		ds.setConnectionTimeout(connectionTimeout);
+		return ds;
 	}
 	
 	@Bean
-	   public DataSource dataSource(
-	         @Value("${maindb.driverClassName}")String driverClassName
-	         ,@Value("${maindb.url}")String url
-	         ,@Value("${maindb.username}")String username
-	         ,@Value("${maindb.password}")String password
-	         ,@Value("${maindb.autoCommit}")boolean autoCommit
-	         ,@Value("${maindb.minimumIdle}")int minimumIdle
-	         ,@Value("${maindb.maximumPoolSize}")int maximumPoolSize
-	         ,@Value("${maindb.connectionTimeout}")long connectionTimeout
-	         ) {
-	      HikariDataSource ds = new HikariDataSource();
-	      ds.setDataSourceClassName(driverClassName);
-	      ds.setUsername(username);
-	      ds.setPassword(password);
-	      ds.setAutoCommit(autoCommit);
-	      ds.setMinimumIdle(minimumIdle);
-	      ds.setMaximumPoolSize(maximumPoolSize);
-	      ds.setConnectionTimeout(connectionTimeout);
-	      
-	      return ds;
+	public JdbcTemplate jdbcTemplate(
+		DataSource dataSource	
+	) {
+		JdbcTemplate jt = new JdbcTemplate(dataSource);
+		return jt;
 	}
 }
+
+
+
+
+
+
+
+
+

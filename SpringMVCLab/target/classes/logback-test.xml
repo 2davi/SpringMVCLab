@@ -23,7 +23,7 @@
     <!-- encoders are assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
     <encoder>
-      <pattern>%yellow(%thread) %magenta(%-5level) %cyan(%logger{15}) -%kvp- %n%msg%n</pattern>
+      <pattern>%magenta([%5level]) %msg -%kvp- %cyan(%logger{15}%n) </pattern>
     </encoder>
   </appender>
   
