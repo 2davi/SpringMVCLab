@@ -16,10 +16,10 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>kr.or.ddit.conf.SpringRootContextConfig</param-value>
 	</context-param>
- 	<listener>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -36,9 +36,19 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<filter><!--■□■ -->
+		<filter-name>sitemesh</filter-name>
+		<filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- 하위 컨테이너 생성 설정. Controller/View layer 등록 -->
 	<!-- Front Controller Pattern : 모든 요청을 집중해서 처리하는 전처리 컨트롤러 분리 구조. -->
-	<!-- Front Controller(DispatcherServlet) 뒤에서 하나의 요청을 전담하는 컨트롤러(command handler)가 동작하게 됨. --> 
+	<!-- Front Controller(DispatcherServlet) 뒤에서 하나의 요청을 전담하는 컨트롤러(command handler)가 
+		동작하게 됨. -->
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -48,6 +58,12 @@
 			<param-value>/WEB-INF/springmvc/dispatcher-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>10240000</max-file-size>
+			<max-request-size>102400000</max-request-size>
+			<file-size-threshold>10240</file-size-threshold>
+			<!-- 10KB 미만의 파일은 임시저장소 활용을 하지 않는다. -->
+		</multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>

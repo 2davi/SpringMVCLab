@@ -33,6 +33,10 @@
       </mvc:content-negotiation>
       <mvc:jsp prefix="/WEB-INF/views/" suffix=".jsp"/>
    </mvc:view-resolvers>
+   
+   <bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver"
+   		 id="multipartResolver"
+   />
 </beans>
 
 

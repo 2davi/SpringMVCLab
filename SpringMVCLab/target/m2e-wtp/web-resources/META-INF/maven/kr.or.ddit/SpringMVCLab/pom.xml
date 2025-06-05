@@ -56,6 +56,13 @@
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 			<version>3.0.1</version>
 		</dependency>
+		<!-- 페이지 레이아웃을 지원하는 프레임워크 -->
+       <dependency>
+	        <groupId>org.sitemesh</groupId>
+	        <artifactId>sitemesh</artifactId>
+	        <version>3.2.1</version>
+	   </dependency>
+		
 		<!--DI Container-->
 		<dependency>
 			<groupId>org.springframework</groupId>

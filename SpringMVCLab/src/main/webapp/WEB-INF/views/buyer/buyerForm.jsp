@@ -6,7 +6,7 @@
 <html>
 <head>
 <title>Insert title here</title>
-<script src="<c:url value='/resources/js/app/buyer/buyerForm.js'/>"></script>
+<script src="<c:url value='/resources/js/buyer/buyerForm.js'/>"></script>
 </head>
 <body>
   <div class="card">
@@ -28,7 +28,7 @@
 				<form:input path="lprodGu" cssClass="form-control" placeholder="분류코드(*)" />
 				<form:errors path="lprodGu" cssClass="error" />
 				
-				<select name="lprodGuasdf" id="lprodGuasdf" class="form-select"
+				<select name="lprodGu" id="lprodGu" class="form-select"
 					data-init-val="${buyer.lprodGu }"
 					<option value="">분류선택</option>
 				</select>

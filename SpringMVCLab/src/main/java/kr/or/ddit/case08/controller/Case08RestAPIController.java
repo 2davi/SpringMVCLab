@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -74,8 +77,20 @@ public class Case08RestAPIController {
 		return target;
 	}
 	
-//	@PostMapping
-//	@PutMapping
+	   @PostMapping
+	   public NativeJavaVO create(@RequestBody NativeJavaVO njv) {
+	      String newPk = "pk" + dummyDB.size()+10;
+	      njv.setCode(newPk);
+	      dummyDB.put(newPk, njv);
+	      return njv;
+	   }
+	   
+	   @PutMapping("{key}")
+	   public Map<String, Object> modify(@PathVariable String key, @RequestBody NativeJavaVO njv) {
+	      dummyDB.put(key, njv);
+	      return Map.of("Success", true, "target", njv);
+	   }
+
 	
 	@DeleteMapping("{key}")
 	public Map<String, Object> restDelete(@PathVariable String key) {
