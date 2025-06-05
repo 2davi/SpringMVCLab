@@ -34,7 +34,8 @@ public class Case10UploadController {
 	private ErrorsUtils errorUtils;
 	
 	//파일형태의 자원을 대표하는 인터페이스.
-	@Value("file:D:/uploadFiles/")
+	//placeholder를 통해 해당 클래스 바꿀 필요 ㅇ벗어짐
+	@Value("${dummyUpload}")
 	private Resource saveRes;
 	
 	

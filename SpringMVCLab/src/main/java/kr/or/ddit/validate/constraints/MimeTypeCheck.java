@@ -19,7 +19,7 @@ public @interface MimeTypeCheck {
 	
 	String mainType();
 	
-    String message() default "파일이 비어있음 ^0^";
+    String message() default "파일 MIME의 메인 타입 확인";
 
     Class<?>[] groups() default { };
 

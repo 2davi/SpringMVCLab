@@ -4,6 +4,7 @@ package kr.or.ddit.conf;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @ComponentScan(basePackages = "kr.or.ddit", excludeFilters = {
 		@Filter(Controller.class), @Filter(ControllerAdvice.class)
 })
+@PropertySource(value = "classpath:kr/or/ddit/FileInfo.properties")
 public class SpringRootContextConfig {
 
 	@PostConstruct
